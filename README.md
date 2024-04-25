@@ -1,5 +1,5 @@
 # eDNA_Kurihama_Bay
 
-Title
-Journal names
+Title/
+Journal name/
 Authors
