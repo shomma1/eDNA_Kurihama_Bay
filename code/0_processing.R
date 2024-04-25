@@ -1,6 +1,4 @@
 
-# setwd("working directory")
-
 library(tidyverse)
 
 # Preprocessing ================================================================
