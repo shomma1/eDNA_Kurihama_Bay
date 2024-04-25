@@ -48,7 +48,7 @@ text(min(boxp$out), 0.75, paste(names(boxp$out),collapse = ", "),
 # prepare for spatial analysis --------------------------------------------
 
 library(ggmap)
-register_stadiamaps("d70e9693-b38d-4d02-a8f2-0598f7f733c0", write = FALSE)
+register_stadiamaps("yourkey", write = FALSE)
 map <- get_stadiamap(bbox = c(left = 139.712,
                               bottom = 35.219,
                               right =139.725,
@@ -203,7 +203,7 @@ sampleinfo %>%
 
 
 # (b)
-tab_psu <- read.csv("./input/PSU/PSU_vertical.csv")
+tab_psu <- read.csv("./input/salinity/PSU_vertical.csv")
 
 tab_psu %>%
   pivot_longer(-depth, names_to = c("survey", "location"), names_sep = "_") %>%
