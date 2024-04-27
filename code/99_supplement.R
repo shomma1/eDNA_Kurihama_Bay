@@ -23,7 +23,7 @@ sampleinfo %>%
       TRUE ~ Month),
     Group3 = factor(Group3, levels = c("River", "Marine")),
     Month = factor(Month, levels = c("November", "January"))) %>%
-  ggplot(aes(x = PSU, y = qPCR_Carp, col = Group3)) +
+  ggplot(aes(x = PSU, y = qPCR_Carp + 1, col = Group3)) +
   geom_point() +
   facet_wrap(~Month) +
   scale_y_continuous(trans = "log10") +
@@ -56,10 +56,7 @@ map <- get_stadiamap(bbox = c(left = 139.712,
                      maptype = "stamen_toner_lite",
                      zoom = 17, color =  "bw")
 
-# 注意
 sampleinfo <- read.csv("./input/sample_info.csv")
-sampleinfo$qPCR_Carp <- sampleinfo$qPCR_Carp -1
-is.na(sampleinfo$qPCR_Carp) <- 0
 d <- sampleinfo %>%
   mutate(
     Group3 = case_when(

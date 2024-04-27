@@ -36,7 +36,7 @@ for (month in c("Nov", "Jan")) {
     y  <- sample %>% filter(Group1 == "R") %>%
         select(Site, qPCR_Carp)
     x <- dist_geo["RA", y$Site]
-    model <- lm(log10(y$qPCR_Carp) ~ x)
+    model <- lm(log10(y$qPCR_Carp + 1) ~ x)
     p_value <- summary(model)$coefficients["x","Pr(>|t|)"]
     
     if (p_value < 0.05) { # significant
@@ -45,7 +45,7 @@ for (month in c("Nov", "Jan")) {
       lines(x, y=y_pred, col = cols[i],lwd =2)
     
     } else { # not significant -> null model was accepted
-      model <- lm(log10(y$qPCR_Carp) ~ 1) # null model
+      model <- lm(log10(y$qPCR_Carp + 1) ~ 1) # null model
       abline(model, col=cols[i], lty = 2)
       y_pred <- predict(model, data.frame(x))
       lines(x, y=y_pred, col = cols[i], lwd = 2)
@@ -54,7 +54,7 @@ for (month in c("Nov", "Jan")) {
     # plot
     y <- sample %>% filter(Group1 == "IB") %>%
       select(Site, qPCR_Carp)
-    mean_y_bay <- mean(log10(y$qPCR_Carp))
+    mean_y_bay <- mean(log10(y$qPCR_Carp +1))
     lines(c(-100,dist_geo["RA","S7B"]), # S2 to S7
           c(mean_y_bay,mean_y_bay),
           col=cols[i], lty = 3)
@@ -299,7 +299,7 @@ d <- left_join(high, low, by = c("Site", "Month"))
 colnames(d)[colnames(d) == "qPCR_Carp.x"] <- "High"
 colnames(d)[colnames(d) == "qPCR_Carp.y"] <- "Low"
 
-wilcox.test(d$High -1, d$Low -1, paired = T)
+wilcox.test(d$High, d$Low, paired = T)
 
 # ======================
 # qPCR S7 U/B
@@ -312,7 +312,7 @@ bottom <- sampleinfo %>%
   filter(Site2 == "S7", UB == "B") %>%
   select(Month, Symbol, UB, qPCR_Carp)
 
-c(mean(upper$qPCR_Carp-1), mean(bottom$qPCR_Carp-1))
+c(mean(upper$qPCR_Carp), mean(bottom$qPCR_Carp))
 
 
 # == end ==

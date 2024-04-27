@@ -7,7 +7,7 @@ df_org <- read.csv("./input/dataset.csv", row.names = 1)
 sampleinfo <- read.csv("./input/sample_info.csv")
 
 # basic info
-print(paste("総リード数", sum(colSums(df_org))))
+print(paste("total read counts", sum(colSums(df_org))))
 
 # removed sample
 print("removed samples")
